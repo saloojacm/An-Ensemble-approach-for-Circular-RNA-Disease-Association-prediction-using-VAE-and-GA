@@ -185,7 +185,7 @@ decoded = Dense(512, activation='relu')(decoded)
 output_data = Dense(673, activation='sigmoid')(decoded)
 autoencoder = Model(input_data, output_data)
 autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
-autoencoder.fit(X_train, X_train, epochs=10)
+autoencoder.fit(X_train, X_train, epochs=8)
 
 ##---------------Genetic Algorithm--------------
 
@@ -210,8 +210,8 @@ def GA(VAEoutput_data,y_train):
   Rmodel = GeneticSelectionCV(
     estimator, verbose=2,
     scoring="accuracy", max_features=256,
-    n_population=80, crossover_proba=0.5,
-    mutation_proba=0.2, n_generations=200,
+    n_population=50, crossover_proba=0.3,
+    mutation_proba=0.2, n_generations=100,
     crossover_independent_proba=0.5,
     mutation_independent_proba=0.04,
     tournament_size=3, n_gen_no_change=25,
