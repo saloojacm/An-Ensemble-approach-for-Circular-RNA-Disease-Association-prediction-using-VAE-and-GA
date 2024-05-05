@@ -31,6 +31,7 @@ from sklearn import metrics
 c_d_assoc=pd.read_csv('/content/CircBase-sequence-processed.csv')
 circrna=pd.read_csv('/content/circRNA.csv')
 disease=pd.read_csv('/content/diseases.csv')
+Dsem_matrix=pd.read_csv('/content/DiseaseSem.csv')
 # Functions
 def construct_circRNA_Disease_ass_matrix():
   i=0
@@ -58,18 +59,7 @@ def construct_circRNA_Sequence_similarity_matrix():
 
   savetxt('SCseq matrix.csv', SCseq_matrix, delimiter=',')
 
-def construct_disease_similarity_matrix():
-  i=0
-  j=0
-  Dsem_matrix=np.zeros([disease.shape[0],disease.shape[0]])
-  for i in range(disease.shape[0]):
-    for j in range(disease.shape[0]):
-        D_Wangdis=levenshtein(c_d_assoc.iloc[i][3],c_d_assoc.iloc[j][3])
-        l_ci=len(c_d_assoc.iloc[i][3])
-        l_cj=len(c_d_assoc.iloc[j][3])
-        Dsem_matrix[i][j]=1-(l_ci+l_cj)
 
-  savetxt('d-d-Dsem matrix.csv', Dsem_matrix, delimiter=',')
 
 
 def calculate_rho(K,nc,nd):
@@ -106,7 +96,7 @@ def calculate_D_GIP(K, nd, rho_d):
 
 assoc_matrix=construct_circRNA_Disease_ass_matrix()
 SCseq_matrix=construct_circRNA_Sequence_similarity_matrix()
-Dsem_matrix=construct_circRNA_Sequence_similarity_matrix()
+#Dsem_matrix=construct_circRNA_Sequence_similarity_matrix()
 
 # Calculate rho_c ,rho_d
 rho_c ,rho_d = calculate_rho(assoc_matrix,585,disease.shape[0])
